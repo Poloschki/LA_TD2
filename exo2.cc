@@ -50,7 +50,7 @@ Vector::~Vector()
   vect=NULL;
 }
 
-Vector & Vector::operateur=(const Vector &v) // Affectation
+Vector & Vector::operator=(const Vector &v) // Affectation
 {
   //si param de droite et de gauche sont les mêmes
   if (this ==&v) //comme c'est des pointeurs on vérifie si il pointe sur le même objet
@@ -70,17 +70,17 @@ Vector & Vector::operateur=(const Vector &v) // Affectation
 
 //retourne une référence vers l'ième entier du vecteur
 //le retour de référence rend possible la modification des élements du vecteur.
-int & Vector::operateur [](int i)
+int & Vector::operator [](int i)
 {
   if (i<dim  && i>= 0) //vérification si i est dans la limite
-    return vet[i];
+    return vect[i];
 
   cout<<"indice hors limites. Dernières composantes retournée \n";
   return vect[dim-1];
 }
 
 //ajoute un entier au vector
-Vector &Vector::operateur+=(const int i)
+Vector &Vector::operator+=(const int i)
 {
   int *newVect=new int [dim];
   for(int k=0; k<dim; k++)// copie des composantes du vecteur dans un autre tableau
@@ -99,7 +99,7 @@ Vector &Vector::operateur+=(const int i)
 }
 
 //opérateur d'affichage
-ostream &operateur<< (ostream &o, Vector &v)
+ostream &operator<< (ostream &o, Vector &v)
 {
   for (int i=0;i<v.dim;i++)
   {
@@ -112,11 +112,11 @@ ostream &operateur<< (ostream &o, Vector &v)
 //l'opérateur de saisie
 //Cet opérateur suppose la connaissance de la taille du vecteur
 //l'utilisateur pourra alors entre dim entiers séprés par des espaces ou par des entrées
-istream &operateur >>(istream &is, Vector &v)
+istream &operator>>(istream &is, Vector &v)
 {
   int k=0;
-  cout<<"entrer "<<v.dim<<" entiers ";
-  for (k=0; k<v.dim; k++)
+  cout<<"entrer "<< v.getDim() <<" entiers ";
+  for (k=0; k<v.getDim(); k++)
   {
     is>>v[k];
   }
@@ -179,7 +179,7 @@ Vector::Vector(const Vector &v)
     thisCurNode=thisCurNode->nextNode;
     /*
       On a le vecteur V est un deuxième vecteur de copie
-      On cree deux pointeurs l'un qui va pointer sur les objets de V 
+      On cree deux pointeurs l'un qui va pointer sur les objets de V
       et l'autre sur les objets de la copie
       la boucle fait que les deux poiteurs se déplace dans les vecteurs
       et on affecte l'integer de v au vecteur de copie
@@ -196,7 +196,7 @@ Vector::~Vector()
 }
 
 //ajout à la fin de la chaîne
-Vector::Vector &operator+=(const int i)
+Vector &Vector::operator+=(const int i)
 {
   Node *newNode=new Node(i);
   if (!head)
@@ -207,7 +207,7 @@ Vector::Vector &operator+=(const int i)
     //parcourir la liste pour arriver au dernier élément
     while (n->newNode)
       n=n->nextNode;
-    //inserer le nouveau noeud 
+    //inserer le nouveau noeud
     n->nextNode=newNode;
   }
 
@@ -221,29 +221,82 @@ Vector::Vector &operator+=(const int i)
   // return this;
 }
 
-//affichage du ième élément
-Vector::int &operetor[](const int i)
+Vector &Vector::operator=(const Vector &v)
 {
-  for( int j =0; j < i;j++)
+  if ((this)==&v) return *this;
+
+  if(head) delete head;
+
+  head=NULL;
+  lenght=0;
+  Node*n=v.head;
+  for(int i=0;i<v.lenght;i++)
   {
-    this->head = this->head->nextNode;
+    (*this)+=n->integer;
+    n=n->newNode;
   }
-  return this->head->integer;
+  return *this;
+}
+
+//affichage du ième élément
+Vector::int &operetor[](const int index)
+{
+  Node*n=head;
+  for(int i =0;i<index;i++)
+    n=n->nextNode;
+  return n->integer;
+
+// a tester car peut ne pas fonctionner
+  // for(int j =0; j < i;j++)
+  // {
+  //   this = this->head->nextNode;
+  // }
+  // return this->head->integer;
 }
 
 ostream &operator<<(ostream &o, Vector &v)
 {
+  Node *curNode=v.head;
   for(int i=0; i< v.lenght; i++)
   {
-    o<<v[i]<<" ";
+    o<<curNode->GetInt()<<" ";
+    curNode=curNode->getNextNode();
   }
-  cout<<endl;
   return o;
 }
 
 istream &operator>>(istream &is, Vector &v)
 {
-
+  int entry=-1;
+  cout<<"entrer "<<v.lenght<<" entiers : ";
+  for (int i=0;i<v.lenght;i++)
+    is>>v[i];
+  return is;
 }
 
 #endif
+
+main(int argc, char const *argv[])
+{
+  Vector v1= Vector(2);
+  Vector v2= Vector(4);
+
+  //test différent opérateurs
+  cout<<"v1=: "<<v1<<endl;
+  cout<<"v2=: "<<v2<<endl;
+  v1[0]=56;
+  v1[1]=24;
+  v1+=3;
+  v1[0]=56;
+  cout<<"v1=:"<<v1<<endl;
+  cout<<"v2=:"<<v2<<endl;
+
+  cin>>v1;
+
+  cout<<"v1=:"<<v1<<endl;
+
+  v2+=67;
+  cout<<"v2=:"<<v2<<endl;
+
+  return 0;
+}

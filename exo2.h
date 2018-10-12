@@ -36,14 +36,15 @@ class Vector {
 
   ~Vector ();
 
-  Vector &operateur=(const Vector &); //surcharge de l'opérateur =
-  int & operateur [](int i); //retourne le ième élement
-  Vector &operateur+=(const int); //ajoute un entier au vecteur
+  int getDim(){return dim;};
+  Vector &operator=(const Vector &); //surcharge de l'opérateur =
+  int & operator [](int i); //retourne le ième élement
+  Vector &operator+=(const int); //ajoute un entier au vecteur
 
 //la fonction ostream va récupérer élemnt du vecteur, sauf que les attributs sont privé
 //donc on crée un lien d'amitié pour permetre à ostream d'accéder au constructeurs privé
-    friend ostream &operateur <<(ostream &o, Vector &v);//surcharge de l'opérateur d'affichage
-    friend iostream &operateur >>(iostream &is, Vector &v);//opérateur de saisie
+    friend ostream &operator <<(ostream &o, Vector &v);//surcharge de l'opérateur d'affichage
+    friend iostream &operator >>(iostream &is, Vector &v);//opérateur de saisie
 };
 /*
   Si on ne veut pas utiliser le tableau dynamique on va aller dans le else
@@ -81,11 +82,11 @@ class Vector {
     ~Vector ();
 
     //fonction de gestion de la liste chaînée
-    Vector &operateur+=(const int);//Ajoute un entier à la fin de la liste
-    Vector &operateur=(const Vector &); //Affectation
-    int & operateur [](const int);
-    friend ostream &operateur <<(ostream &o, Vector &v);
-    friend istream &operateur >>(istream &is, Vector &v);
+    Vector &operator+=(const int);//Ajoute un entier à la fin de la liste
+    Vector &operator=(const Vector &); //Affectation
+    int & operator [](const int);
+    friend ostream &operator <<(ostream &o, Vector &v);
+    friend istream &operator >>(istream &is, Vector &v);
 };
 
 #endif

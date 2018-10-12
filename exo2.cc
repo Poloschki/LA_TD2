@@ -187,14 +187,38 @@ Vector::Vector(const Vector &v)
   }
 }
 
+Vector::~Vector()
+{
+  delete head; //effacement recursif
+  head=NULL;
+  lenght=0;
+
+}
+
 //ajout à la fin de la chaîne
 Vector::Vector &operator+=(const int i)
 {
-  this->lenght = this->lenght+1;
-  this->head->integer = i;
-  this->head->nextNode = NULL;
+  Node *newNode=new Node(i);
+  if (!head)
+    head=newNode;
+  else
+  {
+    Node *n=head;
+    //parcourir la liste pour arriver au dernier élément
+    while (n->newNode)
+      n=n->nextNode;
+    //inserer le nouveau noeud 
+    n->nextNode=newNode;
+  }
 
-  return this;
+  lenght++;
+  return *this; //retourner le poiteur
+
+  // this->lenght = this->lenght+1;
+  // this->head->integer = i;
+  // this->head->nextNode = NULL;
+
+  // return this;
 }
 
 //affichage du ième élément

@@ -47,12 +47,12 @@ ELle contient un champ spécial : IsOwner
 Por comprendre ce champ, expliquons d'abord les deux notions suivantes: 
 Stockage interne et stockage externe.
 
-En effet, les données d'une liste chaînée sont comminément stocjées dans les noeuds
+En effet, les données d'une liste chaînée sont comminément stockées dans les noeuds
 de la lsite, comme c'était le cas avec la classe Vector de l'exo2 du TD2.
 C'est le cas d'un stockage interne.
 Cependant, en stockage externe, le noeud contien uniquement un pointeur vers les données
 Cela facilitera la construction de plusieurs listes utilisant les mêmes données.
-En plus, cela permttra une implémentation générique de la minipulation d'une liste
+En plus, cela permttra une implémentation générique de la manipulation d'une liste
 independemment de la nature des données utilisées 
 
 Dans la liste Dico, on utilise bien le stockage externe puisque la classe Node

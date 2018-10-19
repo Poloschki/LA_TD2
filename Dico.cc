@@ -1,5 +1,6 @@
 #include "Dico.h"
 
+
 Definition::Definition(char *m, char *def)
 {
     clef = CString(m);
@@ -90,4 +91,59 @@ CString Dico::GetDef(CString &entry)
         curNode=curNode->nextNode;
     }
     return def;
+}
+
+void Dico::Display()
+{
+    Node *curNode=head->nextNode;
+    while(curNode)
+    {
+        cout<<curNode->def->GetClef().GetString()<<" = "<<curNode->def->GetDef().GetString<<endl;
+        curNode=curNode->nextNode;
+    }
+}
+
+//choisit une définition aléatoire du dictionaire
+Definition* Dico::GetRandDef()
+{
+    if(!lenght)
+        return NULL;
+    
+    int rnd=(rand()%lenght);
+
+    Node *curNode=head->nextNode;
+    for(int i=0;i<rnd;i++)
+    {
+        curNode=curNode->nextNode;
+    }
+    return curNode->def;
+}
+
+ostream & operator<<(ostream & out, Dico & dico)
+{
+    dico.Display();
+    return out; 
+}
+
+
+main(int argc, char const *argv[])
+{
+    Dico dico=Dico();
+
+    dico.AddDef(new Definition("baudet","anne"));
+    dico.AddDef(new Definition("cpp","langage de programmatio"));
+    dico.AddDef(new Definition("abc","les bases de la chose"));
+    dico.AddDef(new Definition("bardot","ane"));
+    dico.AddDef(new Definition("toge","cap"));
+    dico.AddDef(new Definition("parcimonieux","chiche"));
+
+    cout<<dico<<endl;
+    CString s= CString("cpp");
+
+    cout<<dico.GetDef(s).GetString()<<endl;
+
+    /*
+        construction d'un dictionnaire dunamique tmp 
+    */
+    return 0;
 }

@@ -143,7 +143,18 @@ main(int argc, char const *argv[])
     cout<<dico.GetDef(s).GetString()<<endl;
 
     /*
-        construction d'un dictionnaire dunamique tmp 
+        construction d'un dictionnaire dunamique tmpDio utilisant des définitions
+        de dico déjà défini. On voit bien que tmpDico ne possède pas les définitions
+        car elles appartiennent à dico. Pour cela, on le construit ainsi
     */
+   Dico *tmpDico=new Dico(false);
+
+   srand((unsigned)time(0));
+   tmpDico->AddDef(dico.GetRandDef());
+   tmpDico->AddDef(dico.GetRandDef());
+   tmpDico->AddDef(dicco.GetRandDef());
+   cout<<*tmpDico;
+   delete tmpDico;
+   
     return 0;
 }

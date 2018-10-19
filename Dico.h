@@ -1,7 +1,7 @@
 #ifndef DICO_H
 #define DICO_H
 
-#include <CString.h>
+#include "CString.h"
 #include <iostream>
 using namespace std;
 
@@ -33,6 +33,7 @@ private:
         de chaîne et les données manipulées. Cela permettra ce qu'on appelle le 
         "stockage externe" voir l'explication au début de la classe Dico ci dessous
     */
+   Node *nextNode;
 public:
     Node(Definition *); 
     ~Node();

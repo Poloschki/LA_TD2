@@ -152,9 +152,9 @@ main(int argc, char const *argv[])
    srand((unsigned)time(0));
    tmpDico->AddDef(dico.GetRandDef());
    tmpDico->AddDef(dico.GetRandDef());
-   tmpDico->AddDef(dicco.GetRandDef());
+   tmpDico->AddDef(dico.GetRandDef());
    cout<<*tmpDico;
    delete tmpDico;
-   
+
     return 0;
 }
